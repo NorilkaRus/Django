@@ -1,0 +1,34 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "title": "Фрукты",
+      "description": "Вкусные и полезные"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "title": "Овощи",
+      "description": "Не всегда Вкусные но всегда полезные"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "title": "Конфеты",
+      "description": "Не всегда вкусные и не всегда полезные"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 4,
+    "fields": {
+      "title": "Мясо",
+      "description": "Вкусное и полезное если приготовить"
+    }
+  }
+]

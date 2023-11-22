@@ -13,11 +13,10 @@ class Product(models.Model):
         'catalog.Category',
         on_delete=models.CASCADE,
         verbose_name= 'категория',
-        **NULLABLE
     )
-    price = models.IntegerField(verbose_name= 'цена за покупку')
-    created = models.DateTimeField(auto_now=False, auto_now_add=False, verbose_name= 'дата создания', **NULLABLE)
-    changed = models.DateTimeField(auto_now=False, auto_now_add=False, verbose_name= 'дата последнего изменения',
+    price = models.PositiveIntegerField(verbose_name= 'цена за покупку')
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, verbose_name= 'дата создания', **NULLABLE)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False, verbose_name= 'дата последнего изменения',
                                    **NULLABLE)
 
     def __str__(self):
@@ -31,7 +30,6 @@ class Product(models.Model):
 class Category(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(**NULLABLE)
-    ordering = ('title',)
 
     def __str__(self):
         return f'{self.title}: {self.description}'
@@ -39,3 +37,4 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
+        ordering = ('title',)

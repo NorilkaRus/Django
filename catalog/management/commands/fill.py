@@ -1,31 +1,37 @@
+import json
+import os.path
+from django.contrib.sites import management
 from django.core.management import BaseCommand
+
 from catalog.models import Product, Category
+from config.settings import BASE_DIR
+from django.shortcuts import get_object_or_404
+
+fixtures_path = os.path.join(BASE_DIR, 'data.json')
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        Product.objects.all().delete()
-        Category.objects.all().delete()
-        category_list = [
-            {"title": "vegetables", "description": "plants",},
-            {"title": "meat", "description": "animals",},
-            {"title": "chocolate", "description": "sweet food",},
-        ]
+        path = os.path.join(BASE_DIR, 'category.json')
+        path_1 = os.path.join(BASE_DIR, 'product.json')
 
-        category_to_create = []
-        for item in category_list:
-            category_to_create.append(Category(**item))
+        with open(path) as f:
+            file_content = f.read()
+            categories_info = json.loads(file_content)
+            categories_for_create = []
+            for info in categories_info:
+                categories_for_create.append(
+                    Category(**info["fields"])
+                )
+            Category.objects.all().delete()
+            Category.objects.bulk_create(categories_for_create)
 
-        Category.objects.bulk_create(category_to_create)
-
-
-        product_list = [
-            {"title": "cucumber", "category_id": 25, "price": "150"},
-            {"title": "pork", "category_id": 26, "price": "200"},
-            {"title": "Twix", "category_id": 27, "price": "60"},
-        ]
-
-        product_to_create = []
-        for item in product_list:
-            product_to_create.append(Product(**item))
-
-        Product.objects.bulk_create(product_to_create)
+        with open(path_1) as f:
+            file_content = f.read()
+            products_info = json.loads(file_content)
+            products_for_create = []
+            for info in products_info:
+                products_for_create.append(
+                    Product(**info["fields"])
+                )
+            Product.objects.all().delete()
+            Product.objects.bulk_create(products_for_create)

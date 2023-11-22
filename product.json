@@ -1,0 +1,67 @@
+[
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "title": "Яблоко",
+      "description": "Зеленое",
+      "preview": "",
+      "category": 1,
+      "price": "20",
+      "created": "2023-10-13T22:06:12Z",
+      "updated": "2023-10-13T22:06:11Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "title": "Картошка",
+      "description": "Сырая",
+      "preview": "",
+      "category": 2,
+      "price": "13",
+      "created": "2023-10-13T22:06:27Z",
+      "updated": "2023-10-13T22:06:29Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "title": "Степ",
+      "description": "Шоколадные",
+      "preview": "",
+      "category": 3,
+      "price": "46",
+      "created": "2023-10-13T22:06:54Z",
+      "updated": "2023-10-13T22:06:55Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "title": "Свинина",
+      "description": "Шейка",
+      "preview": "",
+      "category": 4,
+      "price": "87",
+      "created": "2023-10-13T22:07:11Z",
+      "updated": "2023-10-13T22:07:12Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+      "title": "Банан",
+      "description": "Желтый",
+      "preview": "",
+      "category": 1,
+      "price": "28",
+      "created": "2023-10-13T22:07:32Z",
+      "updated": "2023-10-13T22:07:33Z"
+    }
+  }
+]
