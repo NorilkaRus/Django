@@ -15,12 +15,17 @@ class Product(models.Model):
         verbose_name= 'категория',
     )
     price = models.PositiveIntegerField(verbose_name= 'цена за покупку')
-    created = models.DateTimeField(auto_now=False, auto_now_add=True, verbose_name= 'дата создания', **NULLABLE)
-    updated = models.DateTimeField(auto_now=True, auto_now_add=False, verbose_name= 'дата последнего изменения',
-                                   **NULLABLE)
+    created = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='дата создания'
+    )
+    updated = models.DateTimeField(
+        auto_now=True,
+        verbose_name='дата последнего изменения'
+    )
 
     def __str__(self):
-        return f'{self.title}: {self.description} - {self.price}'
+        return f'{self.title} ({self.description}): {self.price}'
 
     class Meta:
         verbose_name = 'продукт'

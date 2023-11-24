@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Hi, Sky</h1>
-</body>
-</html>
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+    <div class="container marketing">
+        <!-- Three columns of text below the carousel -->
+        <div class="row">
+            {% for object in object_list %}
+            <div class="col-lg-4">
+                <img class="rounded-circle"
+                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     alt="Generic placeholder image" width="140" height="140">
+                <h2>Heading</h2>
+                <p>{{object | title}}</p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+            {% endfor %}
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+
+{% endblock %}
