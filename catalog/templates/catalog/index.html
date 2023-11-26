@@ -1,7 +1,5 @@
-{% load custom %}
-
 {% extends 'catalog/base.html' %}
-
+{% load custom %}
 {% block content %}
     <div class="container marketing">
         <!-- Three columns of text below the carousel -->
@@ -10,7 +8,7 @@
             <div class="col-lg-4">
 
                 <img class="rounded-circle"
-                     src="{{ object.image|mediapath }}"
+                     src="{% mediapath object.preview %}"
                      alt="Generic placeholder image" width="140" height="140">
                 <h2>{{object.title | title}}</h2>
                 <h4>{{object.price}} руб.</h4>

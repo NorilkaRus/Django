@@ -1,34 +1,37 @@
 {% extends 'catalog/base.html' %}
+{% load custom %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block title_on_page %}{% endblock %}
 
 {% block content %}
-
-{% block title %}
-    <title>{{ product.product_name }}</title>
-{%endblock%}
-
-{% block top_label %}
-{{ product.product_name }}
-{%endblock%}
-
-{% block main_info %}
-    {% if product.product_img %}
-        <div style='height: 300px; weight: 300px'>
-            <img src="{{ product.product_img }}" alt="product_img" style='float: left; object-fit: contain; max-width: 100%; max-height: 100%;'>
-        </div>
-    {% endif %}
-
-    <div class='product_desc'>
-        <div class='card' style='background-color: #1d1d1d; padding: 13px; margin: 7px; color: white; border: 2px solid #ffd900'>
-            <h5>Описание: {{ product.product_desc }}</h5>
-            <hr>
-            <h6>Версия продукта: {{ version.product_version }}</h6>
-            <h6>Название версии: {{ version.version_name }}</h6>
-            <hr>
-            <h5>Цена: {{ product.unit_price }} руб.</h5>
-            <h5>Дата создания: {{ product.date_created }}</h5>
-            <h5>Дата последнего изменения: {{ product.date_last_modified }}</h5><br>
+ <section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            {% if not product.preview %}
+                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+            {% else %}
+                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{% mediapath product.preview %}" alt="..." /></div>
+            {% endif %}
+            <div class="col-md-6">
+                <div class="small mb-1">Категория: {{ product.category }}</div>
+                <h1 class="display-5 fw-bolder">{{ product.name }}</h1>
+                <div class="fs-5 mb-5">
+{#                    <span class="text-decoration-line-through">$45.00</span>#}
+                    <span>₽{{ product.price }}</span>
+                </div>
+                <div class="small mb-1">{{ product.created_at }}</div>
+                    <p class="lead">{{ product.description }}</p>
+                <div class="d-flex">
+                    <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
+                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                        <i class="bi-cart-fill me-1"></i>
+                        Добавить в корзину
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
-
-{%endblock%}
+</section>
 {% endblock %}
