@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from catalog.models import Product
 from django.http import HttpRequest, HttpResponse
-
+from django.shortcuts import get_object_or_404
 # Create your views here.
 def index(request):
     product_list = Product.objects.all()
@@ -18,9 +18,9 @@ def contacts(request):
         print(f'{name} ({email}): {message}')
     return render(request, 'catalog/contacts.html')
 
-def product(request: HttpRequest, pk: int) -> HttpResponse:
+def product_detail(request: HttpRequest, pk: int) -> HttpResponse:
     product = get_object_or_404(Product, pk=pk)
     ctx = {
-        "product": product
+        "object": product
     }
-    return render(request, template_name="product.html", context=ctx)
+    return render(request, template_name='catalog/product.html', context=ctx)

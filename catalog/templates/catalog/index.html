@@ -1,23 +1,23 @@
 {% extends 'catalog/base.html' %}
 {% load custom %}
 {% block content %}
-    <div class="container marketing">
-        <!-- Three columns of text below the carousel -->
-        <div class="row">
-            {% for object in object_list %}
-            <div class="col-lg-4">
-
-                <img class="rounded-circle"
-                     <src ="{% mediapath object.preview %}" alt="">
-                     alt="Generic placeholder image" width="140" height="140">
-                <h2>{{object.title | title}}</h2>
-                <h4>{{object.price}} руб.</h4>
-                <p>{{object.description | truncatechars:100 }}</p>
-                <a class="p-2 btn btn-outline-primary" href="{% url 'product' object.pk %}">Подробнее</a>
-
-            </div><!-- /.col-lg-4 -->
-            {% endfor %}
-        </div><!-- /.row -->
-    </div><!-- /.container -->
+<div class="container marketing">
+    <!-- Three columns of text below the carousel -->
+    <div class="row">
+        {% for object in object_list %}
+        <div class="col-lg-4">
+            <img class="rounded-circle"
+                 src="{% mediapath object.preview %}"
+                 alt="Generic placeholder image"
+                 width="140" height="140">
+            <h2>{{ object.title | title }}</h2>
+            <h4>{{ object.price }} руб.</h4>
+            <p>{{ object.description | truncatechars:100 }}</p>
+            <a class="p-2 btn btn-outline-primary"
+               href="{% url 'catalog:product-detail' object.pk %}">Подробнее</a>
+        </div>
+        {% endfor %}
+    </div><!-- /.row -->
+</div><!-- /.container -->
 
 {% endblock %}
