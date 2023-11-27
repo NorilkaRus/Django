@@ -19,7 +19,6 @@ def contacts(request):
     return render(request, 'catalog/contacts.html')
 
 def product(request: HttpRequest, pk: int) -> HttpResponse:
-    path("product/<int:pk>", product, name="product"),
     product = get_object_or_404(Product, pk=pk)
     ctx = {
         "product": product

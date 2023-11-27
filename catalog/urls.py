@@ -9,5 +9,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('contacts', contacts, name='contacts'),
-    path('product', product, name='product'),
+    path("product/<int:pk>", product, name="product"),
 ]
