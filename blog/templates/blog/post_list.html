@@ -1,4 +1,4 @@
-{% extends 'catalog/basic.html' %}
+{% extends 'catalog/base.html' %}
 {% block content %}
 {% load custom %}
 
@@ -14,7 +14,7 @@
 
             <div class="col">
                 <div class="card shadow-sm" style="height: 24rem;">
-                    <img src="{% my_media_tag product.image %}" class="card-img-top" alt="...">
+                    <img src="{% mediapath object.image %}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{ object.title|title }}</h5>
                         <p class="card-text">{{ object.description|truncatechars:100 }}</p>

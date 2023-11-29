@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib import admin
 from blog.views import BlogListView, BlogCreateView, BlogDetailView, BlogUpdateView, BlogDeleteView
 from blog.apps import BlogConfig
-app_name = BlogConfig
+app_name = BlogConfig.name
 
 urlpatterns = [
     path('create/', BlogCreateView.as_view(), name='create'),

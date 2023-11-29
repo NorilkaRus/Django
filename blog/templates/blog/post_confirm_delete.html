@@ -1,4 +1,4 @@
-{% extends 'catalog/basic.html' %}
+{% extends 'catalog/base.html' %}
 {% block content %}
 {% load custom %}
 <div class="text-center container">
@@ -7,15 +7,10 @@
             <div class="card">
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data">
+                        <p>Can yoy delete post: "{{ object.name }}"</p>
                         {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" class="btn btn-lg btn-block btn-outline-primary">
-                            {% if object %}
-                            Изменить
-                            {% else %}
-                            Отправить
-                            {% endif %}
-                        </button>
+                        <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Delete</button>
+                        <a type="button" href="{% url 'blog:blog'%}" class="btn btn-lg btn-block btn-outline-primary">return</a>
                     </form>
                 </div>
             </div>
