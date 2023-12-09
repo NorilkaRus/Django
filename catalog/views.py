@@ -52,7 +52,7 @@ class ProductDetailView(View):
     def get(self, request, pk):
         product = Product.objects.get(id=pk)
         context = {
-            'product': product,
-            'title': f'{product.name}'
+            'object': product,
+            'title': f'{product.title}'
         }
-        return render(request, 'catalog/product_detail.html', context)
+        return render(request, 'catalog/product.html', context)
