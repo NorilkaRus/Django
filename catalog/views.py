@@ -72,7 +72,7 @@ class ProductCreateView(CreateView):
     # extra_context = {
     #         'title': 'Create Product'
     # }
-
+    #
     # def form_valid(self, form):
     #     new_mat = form.save()
     #     new_mat.slug = slugify(new_mat.name)

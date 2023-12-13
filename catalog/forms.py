@@ -17,11 +17,19 @@ class ProductForm(forms.ModelForm):
         fields = '__all__'
         # fields = ('title', 'description')
 
-    def clean_product(self):
-        cleaned_data = self.cleaned_data['title', 'description']
+    def clean_title(self):
+        cleaned_data = self.cleaned_data['title']
         bad_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
         for word in bad_words:
             if word.title() in cleaned_data:
-                raise forms.ValidationError('В названии или описании продукта используются запрещенные слова')
+                raise forms.ValidationError('В названии продукта используются запрещенные слова')
+        return cleaned_data
+
+    def clean_description(self):
+        cleaned_data = self.cleaned_data['description']
+        bad_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
+        for word in bad_words:
+            if word.title() in cleaned_data:
+                raise forms.ValidationError('В описании продукта используются запрещенные слова')
         return cleaned_data
 

@@ -41,3 +41,24 @@ class Category(models.Model):
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
         ordering = ('title',)
+
+
+class Version(models.Model):
+    VERSION_CHOICES = ((True, 'активная'), (False, 'не активная'))
+
+    product = models.ForeignKey(
+        'catalog.Product',
+        on_delete=models.CASCADE,
+        verbose_name='Продукт'
+    )
+    version_number = models.IntegerField(default=1, blank=True, verbose_name='Номер версии')
+    version_name = models.CharField(max_length=250, verbose_name='Название версии')
+    is_current = models.BooleanField(choices=VERSION_CHOICES, verbose_name='Признак текущей версии')
+
+    def __str__(self):
+        return f'{self.product} {self.version_number}'
+
+    class Meta:
+        verbose_name = 'Версия'
+        verbose_name_plural = 'Версии'
+        ordering = ('version_number',)  # сортировка по номеру версии
