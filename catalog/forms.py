@@ -1,5 +1,5 @@
 from django import forms
-from catalog.models import Product
+from catalog.models import Product, Version
 
 
 
@@ -10,7 +10,7 @@ class StyleFormMixin:
             field.widget.attrs['class'] = 'form-control'
 
 
-class ProductForm(forms.ModelForm):
+class ProductForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = Product
@@ -21,7 +21,7 @@ class ProductForm(forms.ModelForm):
         cleaned_data = self.cleaned_data['title']
         bad_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
         for word in bad_words:
-            if word.title() in cleaned_data:
+            if word in cleaned_data.lower():
                 raise forms.ValidationError('В названии продукта используются запрещенные слова')
         return cleaned_data
 
@@ -29,7 +29,12 @@ class ProductForm(forms.ModelForm):
         cleaned_data = self.cleaned_data['description']
         bad_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
         for word in bad_words:
-            if word.title() in cleaned_data:
+            if word in cleaned_data.lower():
                 raise forms.ValidationError('В описании продукта используются запрещенные слова')
         return cleaned_data
 
+class VersionForm(StyleFormMixin, forms.ModelForm):
+
+    class Meta:
+        model = Version
+        fields = '__all__'

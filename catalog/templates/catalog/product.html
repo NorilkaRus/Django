@@ -23,6 +23,11 @@
                 </div>
                 <div class="small mb-1">{{ object.created_at }}</div>
                 <p class="lead">{{ object.description }}</p>
+                <div class="card-body">
+                    {% if object.active_version_number %}
+                    <p>Активная версия: №{{ object.version_number }} - {{ object.version_name }}</p>
+                    {% endif %}
+                </div>
                 <div class="d-flex">
                     <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
                            style="max-width: 3rem"/>
