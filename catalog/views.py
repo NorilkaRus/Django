@@ -33,23 +33,9 @@ class IndexListView(ListView):
 
 
     def get_context_data(self, **kwargs):
-
         context = super().get_context_data(**kwargs)
-
-        for product in context['object_list']:
-            active_version = product.version_set.filter(is_current=True).first()
-
-            if active_version:
-                product.active_version_number = active_version.version_number
-                product.active_version_name = active_version.version_name
-
-            else:
-                product.active_version_number = None
-                product.active_version_name = None
-
+        context['version'] = Version.objects.all()
         return context
-
-
 
 
 # def contacts(request):
@@ -124,24 +110,20 @@ class ProductUpdateView(UpdateView):
     def get_form_class(self):
         return super().get_form_class()
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-
         VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
-
         if self.request.method == 'POST':
-            context_data['formset'] = VersionFormset(self.request.POST, instance=self.object, )
+            context_data['formset'] = VersionFormset(self.request.POST, instance=self.object)
         else:
             context_data['formset'] = VersionFormset(instance=self.object)
         return context_data
 
     def form_valid(self, form):
-        new_mat = form.save()
-        new_mat.slug = slugify(new_mat.name)
-        new_mat.save()
-        self.object.save()
-        formset = self.get_context_data()['formset']
+        context_data = self.get_context_data()
+        formset = context_data['formset']
         self.object = form.save()
+
         if formset.is_valid():
             formset.instance = self.object
             formset.save()
