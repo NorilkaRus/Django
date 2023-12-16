@@ -17,6 +17,15 @@
             <h2>{{ object.title | title }}</h2>
             <h4>{{ object.price }} руб.</h4>
             <p>{{ object.description | truncatechars:100 }}</p>
+
+            <div class="card-body">
+                    {% for version in object.version_set.all %}
+                    {% if version.is_current %}
+                    версия - {{ version.version_number }}
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
             <a class="p-2 btn btn-outline-primary"
                href="{% url 'catalog:product-detail' object.pk %}">Подробнее</a>
             <a class="p-2 btn btn-outline-primary"
