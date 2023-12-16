@@ -86,14 +86,6 @@ class ProductCreateView(CreateView):
         return context_data
 
 
-    def form_valid(self, form):
-        formset = self.get_context_data()['formset']
-        self.object = form.save()
-        self.object.owner = self.request.user
-        self.object.save()
-
-        return super().form_valid(form)
-
 class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
