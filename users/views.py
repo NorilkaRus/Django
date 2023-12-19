@@ -11,6 +11,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.crypto import get_random_string
 from django.utils.encoding import force_bytes
+from django.shortcuts import redirect, render
+from django.contrib.auth.views import PasswordResetDoneView
 # Create your views here.
 class UserLogin(LoginView):
     template_name = 'users/login.html'
@@ -72,3 +74,51 @@ class UserConfirmedView(TemplateView):
 class UserConfirmationFailView(View):
     """ Выводит информацию о невозможности зарегистрировать пользователя """
     template_name = 'users/email_confirmation_failed.html'
+
+
+class UserConfirmationSentView(PasswordResetDoneView):
+    """ Выводит информацию об отправке на почту подтверждения регистрации """
+    template_name = "user/registration_sent_done.html"
+
+def generate_new_password(request):
+    """ Генерирует новый пароль пользователя """
+    new_password = get_random_string(length=9)
+
+    send_mail(
+        subject='Новый пароль',
+        message=f'Ваш новый пароль: {new_password}',
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[request.user.email]
+    )
+
+    request.user.set_password(new_password)
+    request.user.save()
+
+    return redirect(reverse('catalog:home'))
+
+
+def regenerate_password(request):
+    """ Генерирует новый пароль пользователя """
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        # Получаем пользователя по email
+        user = User.objects.get(email=email)
+
+        # Генерируем новый пароль
+        new_password = get_random_string(length=9)
+
+        # Изменяем пароль пользователя
+        user.set_password(new_password)
+        user.save()
+
+        # Отправляем письмо с новым паролем
+        send_mail(
+            subject='Восстановление пароля',
+            message=f'Ваш новый пароль: {new_password}',
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[email],
+            fail_silently=False,
+        )
+
+        return redirect(reverse('catalog:home'))
+    return render(request, 'user/regenerate_password.html')

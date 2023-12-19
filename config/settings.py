@@ -142,5 +142,5 @@ LOGIN_REDIRECT_URL = '/'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'Fogel4@yandex.ru'
+EMAIL_HOST_USER = 'fridaguineapig@yandex.ru'
 EMAIL_HOST_PASSWORD = '111'
