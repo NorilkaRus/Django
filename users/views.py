@@ -13,6 +13,7 @@ from django.utils.crypto import get_random_string
 from django.utils.encoding import force_bytes
 from django.shortcuts import redirect, render
 from django.contrib.auth.views import PasswordResetDoneView
+from django.contrib.auth import login
 # Create your views here.
 class UserLogin(LoginView):
     template_name = 'users/login.html'
@@ -78,7 +79,7 @@ class UserConfirmationFailView(View):
 
 class UserConfirmationSentView(PasswordResetDoneView):
     """ Выводит информацию об отправке на почту подтверждения регистрации """
-    template_name = "user/registration_sent_done.html"
+    template_name = "users/registration_sent_done.html"
 
 def generate_new_password(request):
     """ Генерирует новый пароль пользователя """
@@ -121,4 +122,12 @@ def regenerate_password(request):
         )
 
         return redirect(reverse('catalog:home'))
-    return render(request, 'user/regenerate_password.html')
+    return render(request, 'users/regenerate_password.html')
+
+send_mail(
+    'Test Subject',
+    'Test message body',
+    'fridaguineapig@yandex.ru',
+    ['norilkarus@gmail.com'],
+    fail_silently=False,
+)
