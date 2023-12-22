@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from config import settings
+from django.conf import settings
 
 NULLABLE = {'blank':  True, 'null': True}
 
@@ -26,6 +27,8 @@ class Product(models.Model):
     )
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='владелец', **NULLABLE)
+    is_published = models.BooleanField(default=False, verbose_name='статус публикации')
+
     def __str__(self):
         return f'{self.title} ({self.description}): {self.price}'
 

@@ -14,8 +14,9 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = '__all__'
-        # fields = ('title', 'description')
+        #fields = '__all__'
+        #fields = ('title', 'description')
+        exclude = ('owner', )
 
     def clean_title(self):
         cleaned_data = self.cleaned_data['title']
