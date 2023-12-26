@@ -10,7 +10,7 @@ from django.forms import inlineformset_factory
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
-
+from catalog.services import get_category_cache
 
 
 # Create your views here.
@@ -53,7 +53,10 @@ class IndexListView(ListView):
         else:  # для незарегистрированных пользователей
             queryset = super().get_queryset().filter(
                 is_published=True).order_by('-pk')
+
         return queryset
+
+
 
 
     def get_context_data(self, **kwargs):
