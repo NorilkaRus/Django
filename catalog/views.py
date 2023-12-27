@@ -11,6 +11,7 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from catalog.services import get_category_cache
+from django.core.cache import cache
 
 
 # Create your views here.
@@ -28,6 +29,10 @@ class IndexListView(ListView):
     extra_context = {
         'title': 'index'
     }
+
+    def get_context(self):
+        context_data = get_category_cache()
+        return context_data
 
     # def get_queryset(self, *args, **kwargs):
     #     queryset = super().get_queryset(*args, **kwargs)
@@ -75,7 +80,6 @@ class IndexListView(ListView):
 
 class ContactsPageView(View):
 
-
     def get(self, request):
         context = {'title': 'Контакты'}
         return render(request, 'catalog/contacts.html', context)
@@ -98,7 +102,6 @@ class ContactsPageView(View):
 #     return render(request, template_name='catalog/product.html', context=ctx)
 
 class ProductDetailView(View):
-
 
     def get(self, request, pk):
         product = Product.objects.get(id=pk)
